@@ -93,17 +93,31 @@ def _call_orchestrator(intent: str, payload: dict, guest_id: str | None = None):
             "mcp_response": {"error": str(e)},
         }
 
+    agent_resp = result.get("response", result) if isinstance(result, dict) else result
+    if isinstance(agent_resp, str):
+        agent_resp = {"response_message": agent_resp, "status": "success", "action": "procesar"}
+
     mcp_received = {
         "jsonrpc": "2.0",
-        "result": result.get("response", result) if isinstance(result, dict) else result,
+        "result": agent_resp,
         "id": mcp_sent["id"],
     }
 
-    return {
-        **result,
+    # Enhance the result to match the frontend expectations for Agent Cards
+    enhanced_result = {
+        "success": result.get("success", True),
+        "module": intent.split(" ")[0] if intent else "General",
+        "agent": target_agent,
+        "intent": intent,
+        "decision": agent_resp.get("action", "procesado"),
+        "status": agent_resp.get("status", "success"),
+        "response_message": result.get("final_message") or agent_resp.get("response_message", "Completado exitosamente."),
+        "response_details": agent_resp,
         "mcp_request": mcp_sent,
         "mcp_response": mcp_received,
     }
+
+    return enhanced_result
 
 
 # ══════════════════════════════════════════════════════════════

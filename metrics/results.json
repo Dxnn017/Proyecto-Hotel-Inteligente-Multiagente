@@ -1,29 +1,29 @@
 {
-  "total_requests": 58,
-  "successful_requests": 58,
+  "total_requests": 74,
+  "successful_requests": 74,
   "failed_requests": 0,
-  "total_latency_sec": 0.32547783851623535,
+  "total_latency_sec": 0.45415472984313965,
   "agent_latency_sec": {
-    "reservation_agent": 0.06427335739135742,
-    "orchestrator_agent": 0.16994166374206543,
-    "checkin_agent": 0.030491113662719727,
-    "customer_service_agent": 0.022498607635498047,
-    "billing_agent": 0.014336347579956055,
-    "feedback_agent": 0.023936748504638672
+    "reservation_agent": 0.09635019302368164,
+    "orchestrator_agent": 0.2350606918334961,
+    "checkin_agent": 0.043030500411987305,
+    "customer_service_agent": 0.03232455253601074,
+    "billing_agent": 0.017093896865844727,
+    "feedback_agent": 0.03029489517211914
   },
   "agent_calls": {
-    "reservation_agent": 12,
-    "orchestrator_agent": 58,
-    "checkin_agent": 14,
-    "customer_service_agent": 10,
-    "billing_agent": 5,
-    "feedback_agent": 10
+    "reservation_agent": 16,
+    "orchestrator_agent": 74,
+    "checkin_agent": 18,
+    "customer_service_agent": 13,
+    "billing_agent": 6,
+    "feedback_agent": 12
   },
-  "estimated_token_usage": 11600,
-  "conflicts_detected": 5,
-  "human_escalations": 10,
+  "estimated_token_usage": 14800,
+  "conflicts_detected": 6,
+  "human_escalations": 12,
   "auto_resolved": 0,
-  "swarms_executed": 5,
+  "swarms_executed": 7,
   "success_rate_percent": 100.0,
   "error_rate_percent": 0.0,
   "average_latency_sec": 0.006
