@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hotel Inteligente con 5 Agentes de IA
 
 Este proyecto implementa una solución de automatización integral basada en una arquitectura multiagente para los procesos de un hotel. Fue desarrollado para cumplir con el nivel de Excelencia (20/20) del curso "Automatización Inteligente de Procesos".
@@ -83,3 +84,6 @@ Los escenarios que resultan en rechazos (como una reserva sin disponibilidad o c
 
 ## 12. Defensa del Proyecto
 Revisar [docs/defense_script.md](docs/defense_script.md) para el guion y preguntas frecuentes del jurado.
+=======
+# Proyecto-Hotel-Inteligente-Multiagente
+>>>>>>> 9dc57c2e83a9fe6c35f16d537eaec40db993fb0a
