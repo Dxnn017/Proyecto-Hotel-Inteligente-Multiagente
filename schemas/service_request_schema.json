@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Service Request Payload Schema",
+  "description": "Schema para el payload de solicitudes de servicio durante la estadía",
+  "type": "object",
+  "required": ["action"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["crear_solicitud", "resolver_solicitud", "escalar_solicitud", "consultar_estado"]
+    },
+    "service_category": {
+      "type": "string",
+      "enum": ["limpieza", "mantenimiento", "toallas", "informacion_turistica", "restaurante", "reclamo", "room_service"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["baja", "media", "alta", "urgente"]
+    },
+    "room_number": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "resolution_status": {
+      "type": "string",
+      "enum": ["pendiente", "en_proceso", "resuelto", "escalado"]
+    },
+    "resolution_details": {
+      "type": "string"
+    },
+    "escalation_reason": {
+      "type": "string"
+    },
+    "estimated_time": {
+      "type": "string"
+    },
+    "response_message": {
+      "type": "string"
+    }
+  }
+}

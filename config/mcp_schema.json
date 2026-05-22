@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCP Message Schema - Hotel Inteligente",
+  "description": "Schema base para comunicación entre agentes compatible con MCP (Model Context Protocol)",
+  "type": "object",
+  "required": [
+    "message_id",
+    "timestamp",
+    "source_agent",
+    "target_agent",
+    "event_type",
+    "guest_id",
+    "payload",
+    "status"
+  ],
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "description": "Identificador único del mensaje (UUID)",
+      "pattern": "^msg-[a-f0-9\\-]+$"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "Marca temporal ISO 8601",
+      "format": "date-time"
+    },
+    "source_agent": {
+      "type": "string",
+      "description": "ID del agente emisor",
+      "enum": [
+        "orchestrator_agent",
+        "reservation_agent",
+        "checkin_agent",
+        "customer_service_agent",
+        "billing_agent",
+        "feedback_agent",
+        "guest",
+        "system"
+      ]
+    },
+    "target_agent": {
+      "type": "string",
+      "description": "ID del agente receptor",
+      "enum": [
+        "orchestrator_agent",
+        "reservation_agent",
+        "checkin_agent",
+        "customer_service_agent",
+        "billing_agent",
+        "feedback_agent",
+        "guest",
+        "system"
+      ]
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Tipo de evento del mensaje"
+    },
+    "guest_id": {
+      "type": "string",
+      "description": "Identificador del huésped asociado"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Datos específicos del mensaje"
+    },
+    "status": {
+      "type": "string",
+      "description": "Estado del mensaje",
+      "enum": ["pending", "success", "failed", "escalated"]
+    },
+    "confidence": {
+      "type": "number",
+      "description": "Nivel de confianza del agente (0.0 a 1.0)",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 1.0
+    },
+    "requires_human": {
+      "type": "boolean",
+      "description": "Si requiere intervención humana",
+      "default": false
+    }
+  },
+  "additionalProperties": false
+}

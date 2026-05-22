@@ -1,0 +1,178 @@
+# Grafo de agentes del Hotel Inteligente
+# Define la topología jerárquica con pipeline
+
+graph:
+  name: "Hotel Inteligente - Grafo de Agentes"
+  version: "1.0.0"
+  topology: "jerarquica_pipeline"
+  description: >
+    Arquitectura multiagente jerárquica con flujo pipeline.
+    El orquestador coordina 5 subagentes especializados que siguen
+    el ciclo de servicio del huésped: reserva → check-in → estadía → facturación → feedback.
+
+  justification:
+    selected: "Jerárquica con Pipeline"
+    reason: >
+      El proceso hotelero sigue etapas secuenciales bien definidas.
+      La arquitectura jerárquica con pipeline refleja este flujo natural
+      donde cada etapa tiene un agente especializado y el orquestador
+      coordina la transición entre etapas.
+    not_star: >
+      No se usa estrella pura porque el hotel no solo distribuye tareas
+      independientes; sigue un flujo por etapas donde el resultado de una
+      etapa alimenta la siguiente.
+    not_mesh: >
+      No se usa malla pura porque generaría comunicación desordenada
+      entre agentes y conflictos de estado, sin un punto central de
+      coordinación y resolución de conflictos.
+
+# Definición de nodos (agentes)
+nodes:
+  - id: "orchestrator_agent"
+    name: "Agente Orquestador del Hotel"
+    role: "coordinator"
+    level: 0
+    description: >
+      Punto central de coordinación. Recibe solicitudes del huésped,
+      identifica intención y etapa, delega al subagente correcto,
+      gestiona conflictos y mantiene el estado global.
+
+  - id: "reservation_agent"
+    name: "Agente de Reservas"
+    role: "specialist"
+    level: 1
+    pipeline_order: 1
+    domain: "reservas"
+    description: >
+      Gestiona consultas y confirmaciones de reserva.
+      Verifica disponibilidad y propone habitaciones.
+
+  - id: "checkin_agent"
+    name: "Agente de Check-in Digital"
+    role: "specialist"
+    level: 1
+    pipeline_order: 2
+    domain: "check-in"
+    description: >
+      Gestiona registro digital, valida documentos e identidad,
+      confirma check-in y asigna habitación.
+
+  - id: "customer_service_agent"
+    name: "Agente de Atención al Cliente"
+    role: "specialist"
+    level: 1
+    pipeline_order: 3
+    domain: "atencion_cliente"
+    description: >
+      Atiende solicitudes durante la estadía: limpieza, mantenimiento,
+      restaurante, información. Escala cuando no puede resolver.
+
+  - id: "billing_agent"
+    name: "Agente de Facturación Automática"
+    role: "specialist"
+    level: 1
+    pipeline_order: 4
+    domain: "facturacion"
+    description: >
+      Calcula factura final, aplica cargos y descuentos,
+      genera comprobante y confirma checkout.
+
+  - id: "feedback_agent"
+    name: "Agente de Feedback y Fidelización"
+    role: "specialist"
+    level: 1
+    pipeline_order: 5
+    domain: "feedback"
+    description: >
+      Recoge y analiza feedback, clasifica sentimiento,
+      genera promociones o alertas de seguimiento.
+
+# Definición de aristas (comunicación)
+edges:
+  # Orquestador → Subagentes (bidireccional)
+  - from: "orchestrator_agent"
+    to: "reservation_agent"
+    type: "delegation"
+    protocol: "json_schema"
+
+  - from: "orchestrator_agent"
+    to: "checkin_agent"
+    type: "delegation"
+    protocol: "json_schema"
+
+  - from: "orchestrator_agent"
+    to: "customer_service_agent"
+    type: "delegation"
+    protocol: "json_schema"
+
+  - from: "orchestrator_agent"
+    to: "billing_agent"
+    type: "delegation"
+    protocol: "json_schema"
+
+  - from: "orchestrator_agent"
+    to: "feedback_agent"
+    type: "delegation"
+    protocol: "json_schema"
+
+  # Todos los agentes → Memoria Compartida
+  - from: "all_agents"
+    to: "shared_memory"
+    type: "state_update"
+    protocol: "direct_access"
+
+  # Todos los agentes → Event Bus
+  - from: "all_agents"
+    to: "event_bus"
+    type: "event_publish"
+    protocol: "event_driven"
+
+# Pipeline de flujo del huésped
+pipeline:
+  stages:
+    - stage: 1
+      name: "Reserva"
+      agent: "reservation_agent"
+      entry_event: "reserva_solicitada"
+      exit_event: "reserva_confirmada"
+
+    - stage: 2
+      name: "Check-in"
+      agent: "checkin_agent"
+      entry_event: "checkin_iniciado"
+      exit_event: "checkin_validado"
+
+    - stage: 3
+      name: "Estadía"
+      agent: "customer_service_agent"
+      entry_event: "solicitud_servicio_creada"
+      exit_event: "solicitud_servicio_resuelta"
+
+    - stage: 4
+      name: "Facturación y Check-out"
+      agent: "billing_agent"
+      entry_event: "checkout_iniciado"
+      exit_event: "checkout_confirmado"
+
+    - stage: 5
+      name: "Feedback y Fidelización"
+      agent: "feedback_agent"
+      entry_event: "feedback_recibido"
+      exit_event: "promocion_generada"
+
+# Swarms (colaboración entre agentes)
+swarms:
+  - name: "checkout_y_feedback"
+    description: "Colaboración entre Facturación y Feedback para salida con queja"
+    agents: ["billing_agent", "feedback_agent"]
+    trigger: "El huésped solicita salida y feedback simultáneamente"
+
+  - name: "cambio_habitacion_y_limpieza"
+    description: "Colaboración entre Check-in/Reservas y Atención al Cliente"
+    agents: ["checkin_agent", "customer_service_agent"]
+    trigger: "El huésped solicita cambio de habitación y servicio"
+
+  - name: "temporada_alta"
+    description: "Coordinación entre Reservas y Check-in en alta demanda"
+    agents: ["reservation_agent", "checkin_agent"]
+    trigger: "Disponibilidad limitada de habitaciones"

@@ -1,0 +1,84 @@
+{
+  "consumptions": [
+    {
+      "consumption_id": "C001",
+      "guest_id": "G001",
+      "reservation_id": "R001",
+      "type": "restaurante",
+      "description": "Cena en restaurante principal - 2 personas",
+      "amount": 85.50,
+      "date": "2026-05-22T20:30:00",
+      "room_number": "201"
+    },
+    {
+      "consumption_id": "C002",
+      "guest_id": "G001",
+      "reservation_id": "R001",
+      "type": "minibar",
+      "description": "Bebidas y snacks del minibar",
+      "amount": 32.00,
+      "date": "2026-05-22T23:00:00",
+      "room_number": "201"
+    },
+    {
+      "consumption_id": "C003",
+      "guest_id": "G001",
+      "reservation_id": "R001",
+      "type": "lavanderia",
+      "description": "Servicio de lavandería express - 5 prendas",
+      "amount": 25.00,
+      "date": "2026-05-23T08:00:00",
+      "room_number": "201"
+    },
+    {
+      "consumption_id": "C004",
+      "guest_id": "G003",
+      "reservation_id": "R002",
+      "type": "room_service",
+      "description": "Desayuno en habitación - 2 personas",
+      "amount": 45.00,
+      "date": "2026-05-23T07:30:00",
+      "room_number": "203"
+    },
+    {
+      "consumption_id": "C005",
+      "guest_id": "G003",
+      "reservation_id": "R002",
+      "type": "restaurante",
+      "description": "Almuerzo buffet - 2 personas",
+      "amount": 65.00,
+      "date": "2026-05-23T13:00:00",
+      "room_number": "203"
+    },
+    {
+      "consumption_id": "C006",
+      "guest_id": "G005",
+      "reservation_id": "R003",
+      "type": "minibar",
+      "description": "Cerveza y agua mineral",
+      "amount": 18.50,
+      "date": "2026-05-22T21:00:00",
+      "room_number": "204"
+    },
+    {
+      "consumption_id": "C007",
+      "guest_id": "G005",
+      "reservation_id": "R003",
+      "type": "penalidad_dano",
+      "description": "Daño a lámpara de mesa",
+      "amount": 75.00,
+      "date": "2026-05-23T10:00:00",
+      "room_number": "204"
+    },
+    {
+      "consumption_id": "C008",
+      "guest_id": "G001",
+      "reservation_id": "R001",
+      "type": "descuento_promocional",
+      "description": "Descuento huésped frecuente Gold -10%",
+      "amount": -45.00,
+      "date": "2026-05-25T11:00:00",
+      "room_number": "201"
+    }
+  ]
+}

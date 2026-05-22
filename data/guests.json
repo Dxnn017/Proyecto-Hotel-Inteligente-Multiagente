@@ -1,0 +1,95 @@
+{
+  "guests": [
+    {
+      "guest_id": "G001",
+      "name": "Carlos Mendoza",
+      "email": "carlos.mendoza@email.com",
+      "phone": "+51 987654321",
+      "document_type": "dni",
+      "document_number": "45678901",
+      "type": "frecuente",
+      "previous_stays": 5,
+      "loyalty_level": "gold",
+      "preferences": ["piso_alto", "vista_ciudad", "almohada_extra"],
+      "previous_feedback": "positivo"
+    },
+    {
+      "guest_id": "G002",
+      "name": "Ana García López",
+      "email": "ana.garcia@email.com",
+      "phone": "+51 912345678",
+      "document_type": "pasaporte",
+      "document_number": "AB1234567",
+      "type": "nuevo",
+      "previous_stays": 0,
+      "loyalty_level": "none",
+      "preferences": [],
+      "previous_feedback": null
+    },
+    {
+      "guest_id": "G003",
+      "name": "Roberto Díaz",
+      "email": "roberto.diaz@email.com",
+      "phone": "+51 998877665",
+      "document_type": "dni",
+      "document_number": "12345678",
+      "type": "con_reserva",
+      "previous_stays": 2,
+      "loyalty_level": "silver",
+      "preferences": ["habitacion_tranquila"],
+      "previous_feedback": "neutral"
+    },
+    {
+      "guest_id": "G004",
+      "name": "María Torres",
+      "email": "maria.torres@email.com",
+      "phone": "+51 955443322",
+      "document_type": "cedula",
+      "document_number": "CC987654",
+      "type": "sin_reserva",
+      "previous_stays": 0,
+      "loyalty_level": "none",
+      "preferences": [],
+      "previous_feedback": null
+    },
+    {
+      "guest_id": "G005",
+      "name": "Pedro Ramírez",
+      "email": "pedro.ramirez@email.com",
+      "phone": "+51 944332211",
+      "document_type": "dni",
+      "document_number": "87654321",
+      "type": "feedback_negativo",
+      "previous_stays": 3,
+      "loyalty_level": "silver",
+      "preferences": ["planta_baja", "minibar_lleno"],
+      "previous_feedback": "negativo"
+    },
+    {
+      "guest_id": "G006",
+      "name": "Laura Sánchez",
+      "email": "laura.sanchez@email.com",
+      "phone": "+51 933221100",
+      "document_type": "pasaporte",
+      "document_number": "XY9876543",
+      "type": "frecuente",
+      "previous_stays": 8,
+      "loyalty_level": "platinum",
+      "preferences": ["suite", "late_checkout", "champagne"],
+      "previous_feedback": "positivo"
+    },
+    {
+      "guest_id": "G007",
+      "name": "Diego Fernández",
+      "email": "diego.fernandez@email.com",
+      "phone": "+51 966554433",
+      "document_type": "dni",
+      "document_number": "11223344",
+      "type": "nuevo",
+      "previous_stays": 0,
+      "loyalty_level": "none",
+      "preferences": [],
+      "previous_feedback": null
+    }
+  ]
+}

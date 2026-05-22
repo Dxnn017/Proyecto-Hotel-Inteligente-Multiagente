@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feedback Payload Schema",
+  "description": "Schema para el payload de mensajes de feedback y fidelización",
+  "type": "object",
+  "required": ["action"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["enviar_encuesta", "recibir_feedback", "analizar_sentimiento", "generar_promocion", "generar_alerta"]
+    },
+    "rating": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "comment": {
+      "type": "string"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": ["positivo", "neutral", "negativo"]
+    },
+    "sentiment_score": {
+      "type": "number",
+      "minimum": -1.0,
+      "maximum": 1.0
+    },
+    "categories_mentioned": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "promotion": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "discount_percent": { "type": "number" },
+        "description": { "type": "string" },
+        "valid_until": { "type": "string" },
+        "code": { "type": "string" }
+      }
+    },
+    "follow_up_alert": {
+      "type": "object",
+      "properties": {
+        "priority": { "type": "string" },
+        "reason": { "type": "string" },
+        "assigned_to": { "type": "string" },
+        "deadline": { "type": "string" }
+      }
+    },
+    "is_returning_guest": {
+      "type": "boolean"
+    },
+    "previous_stays": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "response_message": {
+      "type": "string"
+    }
+  }
+}

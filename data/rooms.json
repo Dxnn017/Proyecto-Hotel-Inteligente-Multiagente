@@ -1,0 +1,16 @@
+{
+  "rooms": [
+    {"room_id": "101", "floor": 1, "room_type": "simple", "status": "disponible", "tarifa_noche": 80.00, "capacidad": 1, "amenities": ["wifi", "tv", "aire_acondicionado"]},
+    {"room_id": "102", "floor": 1, "room_type": "simple", "status": "disponible", "tarifa_noche": 80.00, "capacidad": 1, "amenities": ["wifi", "tv", "aire_acondicionado"]},
+    {"room_id": "103", "floor": 1, "room_type": "doble", "status": "disponible", "tarifa_noche": 120.00, "capacidad": 2, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar"]},
+    {"room_id": "104", "floor": 1, "room_type": "doble", "status": "ocupada", "tarifa_noche": 120.00, "capacidad": 2, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar"]},
+    {"room_id": "201", "floor": 2, "room_type": "matrimonial", "status": "disponible", "tarifa_noche": 150.00, "capacidad": 2, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar", "jacuzzi"]},
+    {"room_id": "202", "floor": 2, "room_type": "matrimonial", "status": "mantenimiento", "tarifa_noche": 150.00, "capacidad": 2, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar", "jacuzzi"]},
+    {"room_id": "203", "floor": 2, "room_type": "doble", "status": "disponible", "tarifa_noche": 120.00, "capacidad": 2, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar"]},
+    {"room_id": "204", "floor": 2, "room_type": "simple", "status": "reservada", "tarifa_noche": 80.00, "capacidad": 1, "amenities": ["wifi", "tv", "aire_acondicionado"]},
+    {"room_id": "301", "floor": 3, "room_type": "suite", "status": "disponible", "tarifa_noche": 280.00, "capacidad": 4, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar", "jacuzzi", "sala_estar", "balcon"]},
+    {"room_id": "302", "floor": 3, "room_type": "suite", "status": "ocupada", "tarifa_noche": 280.00, "capacidad": 4, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar", "jacuzzi", "sala_estar", "balcon"]},
+    {"room_id": "303", "floor": 3, "room_type": "matrimonial", "status": "disponible", "tarifa_noche": 150.00, "capacidad": 2, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar", "jacuzzi"]},
+    {"room_id": "304", "floor": 3, "room_type": "doble", "status": "disponible", "tarifa_noche": 120.00, "capacidad": 2, "amenities": ["wifi", "tv", "aire_acondicionado", "minibar"]}
+  ]
+}

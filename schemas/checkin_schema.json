@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Check-in Payload Schema",
+  "description": "Schema para el payload de mensajes de check-in digital",
+  "type": "object",
+  "required": ["action"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["iniciar_checkin", "validar_identidad", "confirmar_checkin", "rechazar_checkin"]
+    },
+    "reservation_id": {
+      "type": "string"
+    },
+    "guest_name": {
+      "type": "string",
+      "minLength": 2
+    },
+    "document_type": {
+      "type": "string",
+      "enum": ["dni", "pasaporte", "cedula", "licencia"]
+    },
+    "document_number": {
+      "type": "string",
+      "minLength": 5
+    },
+    "room_assigned": {
+      "type": "string"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["valido", "invalido", "pendiente"]
+    },
+    "validation_errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "check_in_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "response_message": {
+      "type": "string"
+    }
+  }
+}

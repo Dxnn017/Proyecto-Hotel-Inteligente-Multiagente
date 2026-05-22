@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Billing Payload Schema",
+  "description": "Schema para el payload de mensajes de facturación y check-out",
+  "type": "object",
+  "required": ["action"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["iniciar_checkout", "calcular_factura", "generar_comprobante", "confirmar_checkout"]
+    },
+    "reservation_id": {
+      "type": "string"
+    },
+    "room_number": {
+      "type": "string"
+    },
+    "consumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "consumption_id": { "type": "string" },
+          "type": { "type": "string" },
+          "description": { "type": "string" },
+          "amount": { "type": "number" },
+          "date": { "type": "string" }
+        }
+      }
+    },
+    "room_charges": {
+      "type": "number",
+      "minimum": 0
+    },
+    "consumption_total": {
+      "type": "number"
+    },
+    "taxes": {
+      "type": "number",
+      "minimum": 0
+    },
+    "discounts": {
+      "type": "number"
+    },
+    "total_amount": {
+      "type": "number"
+    },
+    "invoice_id": {
+      "type": "string"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": ["efectivo", "tarjeta_credito", "tarjeta_debito", "transferencia"]
+    },
+    "checkout_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "requires_review": {
+      "type": "boolean",
+      "default": false
+    },
+    "response_message": {
+      "type": "string"
+    }
+  }
+}
