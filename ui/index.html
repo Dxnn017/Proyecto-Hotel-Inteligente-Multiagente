@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Gestión Hotelera Inteligente con 5 Agentes de IA">
+    <title>Hotel Inteligente</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<nav id="sidebar">
+    <div class="sidebar-brand">
+        <span class="brand-icon">🏨</span>
+        <span class="brand-text">Hotel Inteligente</span>
+    </div>
+    <ul class="nav-list">
+        <li><a href="#" class="nav-link active" data-section="inicio">📊 Inicio</a></li>
+        <li><a href="#" class="nav-link" data-section="reservas">📅 Reservas</a></li>
+        <li><a href="#" class="nav-link" data-section="checkin">🔑 Check-in Digital</a></li>
+        <li><a href="#" class="nav-link" data-section="atencion">🛎️ Atención al Huésped</a></li>
+        <li><a href="#" class="nav-link" data-section="facturacion">💳 Facturación</a></li>
+        <li><a href="#" class="nav-link" data-section="feedback">⭐ Feedback</a></li>
+        <li class="nav-separator"></li>
+        <li><a href="#" class="nav-link" data-section="tecnico">⚙️ Panel Técnico IA</a></li>
+    </ul>
+</nav>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main id="main-content">
+
+    <!-- ────── HEADER ────── -->
+    <header id="top-header">
+        <div>
+            <h1 id="page-title">Dashboard de Operaciones</h1>
+            <p id="page-subtitle">Vista general del estado del hotel en tiempo real</p>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: INICIO                                    -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="sec-inicio" class="section active">
+        <div class="kpi-grid" id="kpi-grid">
+            <!-- KPIs se insertan dinámicamente -->
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: RESERVAS                                  -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="sec-reservas" class="section">
+        <div class="form-card">
+            <h2>📅 Nueva Reserva</h2>
+            <form id="form-reservas">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="res-name">Nombre del huésped</label>
+                        <input type="text" id="res-name" placeholder="Ej. María López" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-doc">Documento / DNI</label>
+                        <input type="text" id="res-doc" placeholder="Ej. 45123456">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-email">Correo electrónico</label>
+                        <input type="email" id="res-email" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-phone">Teléfono</label>
+                        <input type="tel" id="res-phone" placeholder="+51 999 999 999">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-type">Tipo de habitación</label>
+                        <select id="res-type">
+                            <option value="simple">Simple</option>
+                            <option value="doble">Doble</option>
+                            <option value="matrimonial" selected>Matrimonial</option>
+                            <option value="suite">Suite</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-guests">Número de huéspedes</label>
+                        <input type="number" id="res-guests" min="1" max="5" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-checkin">Fecha de entrada</label>
+                        <input type="date" id="res-checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-checkout">Fecha de salida</label>
+                        <input type="date" id="res-checkout" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Consultar disponibilidad y reservar</button>
+            </form>
+            <div id="result-reservas" class="result-area"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: CHECK-IN                                  -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="sec-checkin" class="section">
+        <div class="form-card">
+            <h2>🔑 Check-in Digital</h2>
+            <form id="form-checkin">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="chk-id">ID de Reserva / Guest ID</label>
+                        <input type="text" id="chk-id" placeholder="Ej. G001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chk-doc">Documento / DNI</label>
+                        <input type="text" id="chk-doc" placeholder="Ej. 45123456">
+                    </div>
+                    <div class="form-group">
+                        <label for="chk-name">Nombre completo</label>
+                        <input type="text" id="chk-name" placeholder="Nombre registrado en reserva">
+                    </div>
+                    <div class="form-group" style="display:flex;align-items:end;">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chk-valid" checked>
+                            Documento validado visualmente
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Validar check-in</button>
+            </form>
+            <div id="result-checkin" class="result-area"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: ATENCIÓN AL HUÉSPED                       -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="sec-atencion" class="section">
+        <div class="form-card">
+            <h2>🛎️ Solicitud del Huésped</h2>
+            <form id="form-atencion">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="srv-id">ID del Huésped</label>
+                        <input type="text" id="srv-id" placeholder="Ej. G001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="srv-room">Número de habitación</label>
+                        <input type="text" id="srv-room" placeholder="Ej. 201">
+                    </div>
+                    <div class="form-group">
+                        <label for="srv-type">Tipo de solicitud</label>
+                        <select id="srv-type">
+                            <option value="limpieza">Limpieza</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                            <option value="restaurante">Restaurante</option>
+                            <option value="informacion">Información</option>
+                            <option value="reclamo">Reclamo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:0.5rem;">
+                    <label for="srv-desc">Descripción detallada</label>
+                    <textarea id="srv-desc" rows="3" placeholder="Describa la solicitud del huésped..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Enviar solicitud</button>
+            </form>
+            <div id="result-atencion" class="result-area"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: FACTURACIÓN                               -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="sec-facturacion" class="section">
+        <div class="form-card">
+            <h2>💳 Facturación y Check-out</h2>
+            <form id="form-facturacion">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bill-id">ID del Huésped</label>
+                        <input type="text" id="bill-id" placeholder="Ej. G001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bill-method">Método de pago</label>
+                        <select id="bill-method">
+                            <option value="efectivo">Efectivo</option>
+                            <option value="tarjeta_credito">Tarjeta de crédito</option>
+                            <option value="tarjeta_debito">Tarjeta de débito</option>
+                            <option value="transferencia">Transferencia bancaria</option>
+                        </select>
+                    </div>
+                </div>
+                <h3 style="margin-top:1.5rem;color:#475569;">Consumos Adicionales</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bill-restaurant">Restaurante ($)</label>
+                        <input type="number" id="bill-restaurant" min="0" step="0.01" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="bill-minibar">Minibar ($)</label>
+                        <input type="number" id="bill-minibar" min="0" step="0.01" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="bill-laundry">Lavandería ($)</label>
+                        <input type="number" id="bill-laundry" min="0" step="0.01" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="bill-room-service">Room Service ($)</label>
+                        <input type="number" id="bill-room-service" min="0" step="0.01" value="0">
+                    </div>
+                </div>
+                <label class="checkbox-label" style="margin-top:1rem;">
+                    <input type="checkbox" id="bill-confirm" required>
+                    Confirmar salida del huésped y liberar habitación
+                </label>
+                <button type="submit" class="btn-primary" style="margin-top:1rem;">Calcular factura y hacer check-out</button>
+            </form>
+            <div id="result-facturacion" class="result-area"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: FEEDBACK                                  -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="sec-feedback" class="section">
+        <div class="form-card">
+            <h2>⭐ Encuesta de Satisfacción</h2>
+            <form id="form-feedback">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fb-id">ID del Huésped</label>
+                        <input type="text" id="fb-id" placeholder="Ej. G001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fb-rating">Calificación</label>
+                        <select id="fb-rating">
+                            <option value="5">⭐⭐⭐⭐⭐ Excelente (5)</option>
+                            <option value="4">⭐⭐⭐⭐ Muy bueno (4)</option>
+                            <option value="3">⭐⭐⭐ Regular (3)</option>
+                            <option value="2">⭐⭐ Malo (2)</option>
+                            <option value="1">⭐ Muy malo (1)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:0.5rem;">
+                    <label for="fb-comment">Comentarios del huésped</label>
+                    <textarea id="fb-comment" rows="3" placeholder="Cuéntenos su experiencia..."></textarea>
+                </div>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="fb-promo" checked>
+                    Acepta recibir promociones y descuentos futuros
+                </label>
+                <button type="submit" class="btn-primary" style="margin-top:1rem;">Enviar feedback</button>
+            </form>
+            <div id="result-feedback" class="result-area"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: PANEL TÉCNICO IA                          -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="sec-tecnico" class="section">
+        <div class="tech-tabs">
+            <button class="tech-tab active" data-tab="tab-agents">Agentes</button>
+            <button class="tech-tab" data-tab="tab-mcp">MCP / JSON</button>
+            <button class="tech-tab" data-tab="tab-memory">Memoria</button>
+            <button class="tech-tab" data-tab="tab-events">Event Bus</button>
+            <button class="tech-tab" data-tab="tab-conflicts">Conflictos</button>
+            <button class="tech-tab" data-tab="tab-swarms">Swarms</button>
+            <button class="tech-tab" data-tab="tab-metrics">Métricas</button>
+        </div>
+
+        <div class="tech-panel active" id="tab-agents">
+            <h3>Agentes de IA Activos</h3>
+            <div class="agent-grid">
+                <div class="agent-card"><h4>🎯 Orquestador</h4><p>Enruta intenciones, maneja swarms y conflictos</p></div>
+                <div class="agent-card"><h4>📅 Agente de Reservas</h4><p>Gestiona disponibilidad y creación de reservas</p></div>
+                <div class="agent-card"><h4>🔑 Agente de Check-in</h4><p>Valida identidad y asigna habitaciones</p></div>
+                <div class="agent-card"><h4>🛎️ Agente de Atención</h4><p>Resuelve solicitudes o las escala a humanos</p></div>
+                <div class="agent-card"><h4>💳 Agente de Facturación</h4><p>Calcula consumos, impuestos y emite facturas</p></div>
+                <div class="agent-card"><h4>⭐ Agente de Feedback</h4><p>Analiza sentimiento y genera promociones</p></div>
+            </div>
+        </div>
+
+        <div class="tech-panel" id="tab-mcp">
+            <h3>Último Intercambio MCP / JSON-RPC 2.0</h3>
+            <p style="color:#64748B;margin-bottom:1rem;">Ejecute una operación en cualquier módulo para ver el mensaje MCP aquí.</p>
+            <div class="mcp-columns">
+                <div>
+                    <h4>Petición (Orquestador → Agente)</h4>
+                    <pre id="mcp-request">Sin datos</pre>
+                </div>
+                <div>
+                    <h4>Respuesta (Agente → Orquestador)</h4>
+                    <pre id="mcp-response">Sin datos</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-panel" id="tab-memory">
+            <h3>Memoria Compartida</h3>
+            <button class="btn-secondary" onclick="loadMemory()">Cargar memoria</button>
+            <pre id="memory-json" style="margin-top:1rem;">Presione "Cargar memoria" para ver el estado.</pre>
+        </div>
+
+        <div class="tech-panel" id="tab-events">
+            <h3>Event Bus</h3>
+            <button class="btn-secondary" onclick="loadEvents()">Cargar eventos</button>
+            <pre id="events-json" style="margin-top:1rem;">Presione "Cargar eventos" para ver los publicados.</pre>
+        </div>
+
+        <div class="tech-panel" id="tab-conflicts">
+            <h3>Conflictos Detectados y Resueltos</h3>
+            <button class="btn-secondary" onclick="loadConflicts()">Cargar conflictos</button>
+            <pre id="conflicts-json" style="margin-top:1rem;">Presione "Cargar conflictos".</pre>
+        </div>
+
+        <div class="tech-panel" id="tab-swarms">
+            <h3>Operaciones Swarm</h3>
+            <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
+                <button class="btn-secondary" onclick="loadSwarms()">Ver historial</button>
+                <button class="btn-primary" onclick="executeSwarm()">Ejecutar Swarm: Check-out + Queja</button>
+            </div>
+            <pre id="swarms-json">Presione un botón.</pre>
+        </div>
+
+        <div class="tech-panel" id="tab-metrics">
+            <h3>Métricas del Sistema</h3>
+            <button class="btn-secondary" onclick="loadMetrics()">Cargar métricas</button>
+            <pre id="metrics-json" style="margin-top:1rem;">Presione "Cargar métricas".</pre>
+        </div>
+    </section>
+
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

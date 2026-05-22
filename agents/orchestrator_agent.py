@@ -70,6 +70,12 @@ class OrchestratorAgent:
         
         # Cargar schemas
         self.schemas = self._load_schemas()
+        
+        # Inicializar protocolo MCP y registrar herramientas
+        from mcp.protocol import MCPProtocol
+        from mcp.tools import register_hotel_mcp_tools
+        self.mcp_protocol = MCPProtocol()
+        register_hotel_mcp_tools(self.mcp_protocol, self)
 
     def _load_schemas(self) -> dict:
         schemas = {}
@@ -115,27 +121,43 @@ class OrchestratorAgent:
             if not target_agent:
                 return self._finalize(guest_id, target_agent, start_time, {"error": "Intención no reconocida"}, False)
 
-            # 3. Validar Schema si aplica
-            if target_agent in self.schemas:
-                try:
-                    jsonschema.validate(instance=payload, schema=self.schemas[target_agent])
-                except jsonschema.exceptions.ValidationError as e:
-                    # Catching schema validation is a functional success (protecting the system)
-                    return self._finalize(guest_id, target_agent, start_time, {"status": "failed", "error": f"Error de validación JSON: {e.message}", "response_message": f"Error de validación JSON: {e.message}"}, True)
-
-            # 4. Delegar al agente
-            agent = self.agents.get(target_agent)
-            try:
-                # Medicion latencia subagente
-                sub_start = time.time()
-                result = agent.process(payload)
-                sub_latency = time.time() - sub_start
-                if self.metrics_logger:
-                    self.metrics_logger.log_latency(target_agent, sub_latency)
+            # --- LLAMADA A TRAVÉS DE LA CAPA MCP ---
+            # Preparamos una petición JSON-RPC 2.0 estándar de MCP: method = "tools/call"
+            mcp_request = {
+                "jsonrpc": "2.0",
+                "method": "tools/call",
+                "params": {
+                    "name": target_agent,
+                    "arguments": payload
+                },
+                "id": f"mcp-{uuid.uuid4().hex[:8]}"
+            }
+            
+            sub_start = time.time()
+            mcp_response = self.mcp_protocol.handle_request(mcp_request)
+            sub_latency = time.time() - sub_start
+            
+            if self.metrics_logger:
+                self.metrics_logger.log_latency(target_agent, sub_latency)
                 
-            except Exception as e:
-                # Real system error
-                return self._finalize(guest_id, target_agent, start_time, {"status": "system_error", "error": f"Error interno en {target_agent}: {str(e)}", "response_message": f"Error interno en {target_agent}: {str(e)}"}, False)
+            # Procesamos la respuesta MCP
+            if "error" in mcp_response:
+                # Ocurrió un error en el protocolo o ejecución
+                err = mcp_response["error"]
+                return self._finalize(
+                    guest_id, 
+                    target_agent, 
+                    start_time, 
+                    {"status": "system_error", "error": err["message"], "response_message": err["message"]}, 
+                    False
+                )
+            
+            # El resultado de la herramienta está dentro de result
+            result = mcp_response["result"]
+            
+            # Si el validador de MCP retornó un fallo de validación
+            if result.get("status") == "failed" and "Error de validación JSON" in result.get("error", ""):
+                return self._finalize(guest_id, target_agent, start_time, result, True)
 
             response_msg = result.get("response_message", "Procesado correctamente.")
             
@@ -150,6 +172,7 @@ class OrchestratorAgent:
                     result["conflict_resolution"] = conflict_res
                     if self.metrics_logger:
                         self.metrics_logger.log_conflict()
+
 
         # 6. Registrar salida y retornar
         return self._finalize(guest_id, target_agent, start_time, result, True)
@@ -178,6 +201,8 @@ class OrchestratorAgent:
         swarm = self.swarm_manager.create_swarm(
             swarm_def["name"], guest_id, swarm_def["tasks"]
         )
+        if self.metrics_logger:
+            self.metrics_logger.log_swarm()
         return self.swarm_manager.execute_swarm(swarm, self.agents)
 
     def _finalize(self, guest_id: str, agent_id: str, start_time: float, result: dict, success: bool) -> dict:

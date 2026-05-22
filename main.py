@@ -11,6 +11,13 @@ import os
 import sys
 from datetime import datetime
 
+# Forzar UTF-8 para evitar errores de UnicodeEncodeError en Windows
+if sys.stdout.encoding.lower() != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except AttributeError:
+        pass
+
 # Añadir el directorio actual al path para imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 

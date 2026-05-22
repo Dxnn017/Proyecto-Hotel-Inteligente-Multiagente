@@ -31,7 +31,8 @@ class MetricsLogger:
             "estimated_token_usage": 0,
             "conflicts_detected": 0,
             "human_escalations": 0,
-            "auto_resolved": 0
+            "auto_resolved": 0,
+            "swarms_executed": 0
         }
         self._load_metrics()
 
@@ -99,6 +100,9 @@ class MetricsLogger:
         
     def log_auto_resolve(self):
         self.metrics["auto_resolved"] += 1
+
+    def log_swarm(self):
+        self.metrics["swarms_executed"] += 1
 
     def print_summary(self):
         """Imprime un resumen de las métricas en consola."""
